@@ -27,4 +27,24 @@ The Power Query Editor is used to transform elements of each table before loadin
 \
 Across all tables column headings are adjusted for consistency and to fit Power BI naming conventions. 
 
+### 3. Model Construction
+Several steps are implemented to build out the data model for effective analysis.
+
+#### Dates table:
+- The table *Dates* is created with a continuous *Date* column using DAX: \
+Dates = CALENDAR(DATE(YEAR(MIN(Orders[Order Date])), 1, 1),\
+DATE(YEAR(MAX(Orders[Order Date])), 12, 31))
+
+- The table *Dates* is built out with columns for *Day of Week*, *Month Number*, *Month Name*, *Quarter*, *Year*, *Start of Year*, *Start of Quarter*, *Start of Month* and *Start of Week*.
+
+#### Table relationships:
+The following one to many relationships were created between tables:
+
+
+
+
+
+
+
+
 
