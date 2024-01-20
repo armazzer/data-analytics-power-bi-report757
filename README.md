@@ -38,12 +38,43 @@ DATE(YEAR(MAX(Orders[Order Date])), 12, 31))
 - The table *Dates* is built out with columns for *Day of Week*, *Month Number*, *Month Name*, *Quarter*, *Year*, *Start of Year*, *Start of Quarter*, *Start of Month* and *Start of Week*.
 
 #### Table relationships:
-The following one to many relationships were created between tables:
+The following many to one (left to right) relationships were created between tables:
 
+- Orders[Product Code] to Products[Product Code]
 
+- Orders[Store Code] to Stores[Store Code]
+- Orders[User ID] to Customers[User UUID]
+- Orders[Order Date] to Date[Date]
+- Orders[Shipping Date] to Date[Date]
 
+Between the last two relationaships indicates above, Orders[Order Date] to Date[Date] was marked as the active relationaship. 
 
+A screenshot of the data model star schema can be seen below \
+\
+![star_schema.png](star_schema.png)
 
+#### Measures table
+
+A separate *Measures table* was created in the Power Query Editor.
+\
+Several key measures were calculated using DAX:
+
+- Total Orders = COUNT(Orders[Date UUID])
+
+- Total Customers = DISTINCTCOUNT(Orders[User ID])
+- Total Quantity = SUM(Orders[Product Quantity])
+- Total Revenue = SUMX(Orders, Orders[Product Quantity] * RELATED('Products'[Sale Price]))
+- Total Profit = SUMX(Orders, Orders[Product Quantity] * (RELATED('Products'[Sale Price]) - RELATED('Products'[Cost Price])))
+- Revenue YTD = TOTALYTD([Total Revenue], Dates[Date])
+- Profit YTD = TOTALYTD([Total Profit], Dates[Date])
+
+#### Date and geography hierarchies
+
+The following date hierarchy was created:\
+Start of Year > Start of Quarter > Start of Month > Start of Week > Date
+
+The following geography hierarchy was created:\
+World Region (Continent) > Country > Country Region
 
 
 
