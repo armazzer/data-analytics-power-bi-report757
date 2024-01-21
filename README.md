@@ -59,7 +59,7 @@ A separate *Measures table* was created in the Power Query Editor.
 \
 Several key measures were calculated using DAX:
 
-- Total Orders = COUNT(Orders[Date UUID])
+- Total Orders = COUNT(Orders[User ID])
 
 - Total Customers = DISTINCTCOUNT(Orders[User ID])
 - Total Quantity = SUM(Orders[Product Quantity])
