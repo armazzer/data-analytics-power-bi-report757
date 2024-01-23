@@ -51,7 +51,7 @@ Between the last two relationaships indicates above, Orders[Order Date] to Date[
 
 A screenshot of the data model star schema can be seen below \
 \
-![star_schema.png](star_schema.png)
+![Images/star_schema.png](Images/star_schema.png)
 
 #### Measures table
 
@@ -77,5 +77,28 @@ The following geography hierarchy was created:\
 World Region (Continent) > Country > Country Region
 
 
+### 4. Report Construction
 
+Four blank pages were created as the basis of the report - *Executive Summary*, *Customer Detail*, *Product Detail* and *Stores Map*
+
+#### Customer Detail page 
+
+The *Customer Detail* page is populated with several visuals to illustrate:
+- Count of unique customers and revenue per customer (cards)
+
+- Total customers by country (doughnut chart)
+- Total customers by product category (column chart)
+- Name of the customer with the highest revenue generation, and the total revenue and number of orders from that customer (cards).
+- Table of top 20 customers filtered by total revenue. Rows in the *Total Revenue* column are formatted to show bars indicating total revenue values. The table and applied filtering can be seen below.
+
+![Images/customer_detail_table_format.png](Images/customer_detail_table_format.png)
+
+- Total customers against time period (line chart). The chart is formatted to allow drill down to the month level, and includes a forcast for the next 10 periods.
+
+- A slicer allowing the user to filter the data by year. 
+
+The orange bar to the left of the page is to become the page navigation bar. 
+An example of the final page layout can be seen below:
+
+![Images/customer_detail_all.png](Images/customer_detail_all.png)
 
