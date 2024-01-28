@@ -102,3 +102,34 @@ An example of the final page layout can be seen below:
 
 ![Images/customer_detail_all.png](Images/customer_detail_all.png)
 
+
+#### Executive Summary
+
+The *Executive Summary* page is popolulated with several visuals to illustrate:
+
+- Total Revenue, Total Profit and Total Orders (card visuals).
+
+- Total Revenue agaist time - Start of Year/Quarter/Month (line chart with drill down to the Start of Month level).
+- Total Revenue by Country and Store Type (donut charts).
+
+- Orders by Product Category (bar chart).
+- KPIs:\
+    Measures are created for *Previous Quarter Revenue*, *Previous Quarter Profit* and *Previous Quarter Orders* using DAX; for example:
+    \
+    \
+    Previous Quarter Revenue = CALCULATE([Total Revenue], FILTER('Dates', DATEADD('Dates'[Start of Quarter], -1, QUARTER)))
+
+    Subsequently, measures for *Target Revenue*, *Target Profit* and *Target Orders* are created based on a 5% increase on the previous quarter, using DAX; for example: 
+    \
+    \
+    Target Revenue = [Previous Quarter Revenue] * 1.05
+
+    Current total quarterly revenue / profit / orders are shown against target revenue / profit / orders in three KPI visuals. 
+
+- Top 10 products with number of orders, total revenue and total profit (table).
+
+An example of the Executive Summary page can be seen below: 
+
+![Images/executive_summary_all.png](Images/executive_summary_all.png)
+
+
