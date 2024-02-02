@@ -132,4 +132,39 @@ An example of the Executive Summary page can be seen below:
 
 ![Images/executive_summary_all.png](Images/executive_summary_all.png)
 
+#### Product Detail page
 
+The *Product Detail* page is populated with several visuals to illustrate:
+- The quarter-to-date orders, revenue and profit against their respective targets (10% growth on the previous quarter) - gauge visuals. 
+    - For each metric, three new DAX measures are created, for example: \
+    \
+    Last Quarter Revenue = CALCULATE([Total Revenue], DATESINPERIOD('Dates'[Date], LASTDATE(Orders[Order Date]), -1, QUARTER))
+    \
+    \
+    Quarter Target Revenue = [Last Quarter Revenue] * 1.1
+    \
+    \
+    QTD Revenue = CALCULATE([Total Revenue], DATESQTD(Orders[Order Date]))
+    
+    
+- Total revenue against start of quarter (date), grouped by product category - area chart. 
+- The top 10 products with total revenue, total customers, total orders and profit per order - table. \
+Profit per order is defined by: \
+Profit per Order = DIVIDE([Total Profit], [Total Orders])
+- Quantity sold against profit per item for each product, grouped by product category - scatter chart. \
+Profit per item is defined as a new column in the Products table by: \
+Profit per Item = Products[Sale Price] - Products[Cost Price]
+
+A slicer toolbar is created containing two slicers allowing product category and store country selection. The slicers are grouped on top of a rectagle constituting the toolbar. Two bookmarks are created, one in which the toolbar is visible and one in which it is hidden. A button is included on the toolbar and assiged the action of hiding the toolbar by association with the "slicer bar closed" bookmark. Similarly, a button is placed on the navigation bar and assigned the action of switching to the "slicer bar open" bookmark. 
+
+The below image shows and example of the slicer toolbar setup.
+
+![Images/product_detail_slice_bar.png](Images/product_detail_slice_bar.png)
+
+Cards are added to the top left of the page to indicate the filter states for product category and store country. 
+
+Cards are added to the lower right of the page to indicate the most ordered product and the product generating the highest revenue, within the filter contexts. \
+\
+An example of the final page layout can be seen below. 
+
+![Images/product_detail_all.png](Images/product_detail_all.png)
