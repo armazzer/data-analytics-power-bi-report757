@@ -168,3 +168,20 @@ Cards are added to the lower right of the page to indicate the most ordered prod
 An example of the final page layout can be seen below. 
 
 ![Images/product_detail_all.png](Images/product_detail_all.png)
+
+
+#### Stores Map
+
+The stores map page contains a large map of stores by Geography Hierarchy (World Region - Country - Country Region) with bubble size proportional to year-to-date profit. A slicer visual in Tile Mode allows rapid filtering by country, including a "Select all" option. The visual is connected to a tooltip page "Stores Tooltip" that displays the year-to-date profit against the profit goal in a gauge visual. 
+
+#### Stores Tooltip
+ The Stores Tooltip page displays the year-to-date profit against the profit goal in a gauge visual. The profit goal is defined as a 20% increase in profit over the previous year, and is defined in two stages using DAX:\
+ \
+Previous Year Profit = CALCULATE([Total Profit], PREVIOUSYEAR(Dates[Date]))\
+\
+Profit Goal = [Previous Year Profit] * 1.2
+
+#### Stores Drillthrough
+
+
+
