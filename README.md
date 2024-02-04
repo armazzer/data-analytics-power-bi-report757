@@ -18,7 +18,11 @@ The Power Query Editor is used to transform elements of each table before loadin
 - Missing values are removed from *Order Date* 
 
 #### Products table:
-- Initally the weight column contains both weight value and unit, with a variety of unit types. Several steps are implemented to convert all values to unit kilograms, and retain only numeric characters. 
+- Initally the *Weight* column contains both weight value and unit, with a variety of unit types. Several steps are implemented to convert all values to unit kilograms, and retain only numeric characters. 
+
+#### Stores table:
+- Initially, the *World Region* column contains varied entries for the same region, for example "Europe" and "eeEurope" and "America" and "eeAmerica". \
+The "ee" prefix is removed from rows using the *Replace Vales* function.  
 
 #### Customers table:
 - The column *Full Name* is created by combining *First Name* and *Last Name*.
@@ -172,7 +176,11 @@ An example of the final page layout can be seen below.
 
 #### Stores Map
 
-The stores map page contains a large map of stores by Geography Hierarchy (World Region - Country - Country Region) with bubble size proportional to year-to-date profit. A slicer visual in Tile Mode allows rapid filtering by country, including a "Select all" option. The visual is connected to a tooltip page "Stores Tooltip" that displays the year-to-date profit against the profit goal in a gauge visual. 
+The stores map page contains a large map of stores by Geography Hierarchy (World Region - Country - Country Region) with bubble size proportional to year-to-date profit. A slicer visual in Tile Mode allows rapid filtering by country, including a "Select all" option. The visual is connected to a tooltip page "Stores Tooltip" that displays the year-to-date profit against the profit goal in a gauge visual. \
+\
+An example of the Stores Map page drilled to *Country Region* level, with Tooltip settings shown for the map visual, can be seen below:\
+\
+![Images/stores_map_country_level.png](Images/stores_map_country_level.png)
 
 #### Stores Tooltip
  The Stores Tooltip page displays the year-to-date profit against the profit goal in a gauge visual. The profit goal is defined as a 20% increase in profit over the previous year, and is defined in two stages using DAX:\
@@ -181,7 +189,29 @@ Previous Year Profit = CALCULATE([Total Profit], PREVIOUSYEAR(Dates[Date]))\
 \
 Profit Goal = [Previous Year Profit] * 1.2
 
+When on the Stores Map page, the Stores Tooltip page is displayed when hovering over a bubble; the guage visual values automaticlly adjust relative to the bubble context and drilldown level.\
+\
+A card visual is included to indicate the current selection. For this a new measure is defined, "Country Region Selection":\
+\
+Country Region Selection = IF(ISFILTERED(Stores[Country Region]), SELECTEDVALUE(Stores[Country Region]), IF(ISFILTERED(Stores[Country]), SELECTEDVALUE(Stores[Country]), SELECTEDVALUE('Stores'[World Region])))  
+
 #### Stores Drillthrough
+
+The Stores Drillthrough page is populated with the following visuals: 
+
+- A card visual showing the currently selected store. New measure, *Store Selection* was created for use in this visual using DAX:\
+\
+Store Selection = IF(ISFILTERED(Stores[Geography]), SELECTEDVALUE(Stores[Geography]), "No Selection")
+
+- Table of top five products with columns for *Description*, *Profit YTD*, *Total Orders* and *Total Revenue*. 
+- Column chart of total orders by product category.
+- Two gauge visuals showing the year-to-date profit and year-to-date revenue against their respective goals (e.g. Profit Goal, as described above in the Stores Tooltip section).
+
+An example of the Stores Drillthrough page, showing page settings, can be seen below:\
+\
+![Images/stores_drillthrough_all.png](Images/stores_drillthrough_all.png)
+
+
 
 
 
