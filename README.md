@@ -201,7 +201,7 @@ The Stores Drillthrough page is populated with the following visuals:
 
 - A card visual showing the currently selected store. New measure, *Store Selection* was created for use in this visual using DAX:\
 \
-Store Selection = IF(ISFILTERED(Stores[Geography]), SELECTEDVALUE(Stores[Geography]), "No Selection")
+Store Selection = IF(ISFILTERED(Stores[Country Region]), SELECTEDVALUE(Stores[Geography]), "No Selection")
 
 - Table of top five products with columns for *Description*, *Profit YTD*, *Total Orders* and *Total Revenue*. 
 - Column chart of total orders by product category.
@@ -210,6 +210,9 @@ Store Selection = IF(ISFILTERED(Stores[Geography]), SELECTEDVALUE(Stores[Geograp
 An example of the Stores Drillthrough page, showing page settings, can be seen below:\
 \
 ![Images/stores_drillthrough_all.png](Images/stores_drillthrough_all.png)
+
+
+NEED TO FIX ISSUE OF BLANKS IN DATA
 
 
 
