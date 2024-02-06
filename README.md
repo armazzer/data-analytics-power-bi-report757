@@ -197,6 +197,8 @@ Country Region Selection = IF(ISFILTERED(Stores[Country Region]), SELECTEDVALUE(
 
 #### Stores Drillthrough
 
+The Stores Drillthrough Page is accessed from the Stores Map page by drilling down to *Country Region* level, right-clicking on a bubble, and selecting Drill through > Stores Drillthrough.
+\
 The Stores Drillthrough page is populated with the following visuals: 
 
 - A card visual showing the currently selected store. New measure, *Store Selection* was created for use in this visual using DAX:\
@@ -211,9 +213,20 @@ An example of the Stores Drillthrough page, showing page settings, can be seen b
 \
 ![Images/stores_drillthrough_all.png](Images/stores_drillthrough_all.png)
 
+#### Report Navigation
+The report navigation bar is finalised with the following:
+- Buttons are added to the navigation bar for quick access to each of the report pages, excluding the Stores Tooltip page. 
+    - For each button a default icon (white fill) and an "on hover" icon (navy) are assigned. 
+    - Each button is assigned the action of "Page navigation" with the destination set to the relevant page. 
+    - The buttons are grouped and placed on the navigation bar of each of the four main pages. 
 
-NEED TO FIX ISSUE OF BLANKS IN DATA
+An example of a report page with the completed navigation bar and related settings can be seen below:
 
+![Images/executive_summary_navigation_settings.png](Images/executive_summary_navigation_settings.png)
+
+#### Cross-filter settings
+The cross-filter settings are adjusted so that some visuals do not filter others, to ensure that relevant information is always displayed. \
+This is achieved by selecting a visual, opening the format ribbon, clicking *Edit interactions* and then selecting either *Filter*, *Highlight* or *None* to determine how each visual is affected by the selected visual. 
 
 
 
