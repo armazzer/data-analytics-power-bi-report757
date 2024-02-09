@@ -237,7 +237,7 @@ In this section of the project, data on a Postgres database server hosted on Mic
 The files associated with this section of the project are stored in a directory called **SQL_tasks**.
 
 
-### Review of tables
+### 1. Review of Tables
 A connection to the database is intitally set up using the SQLTools extension with the Postgres driver selected in VSCode. The connection settings are saved in a .json file: **.vscode/settings.json**.\
 \
 To obtain an overview of the contents of the database, information about the tables is extracted and saved to a number of .csv files for reference.\
@@ -264,7 +264,11 @@ Files are saved to the newly-created directory 'tables_columns_auto'.\
 \
 The notebook also contains a function to extract the connection details from a .yaml file into a dictionary, which is used in the get_data method.  
 
-### Data analysis queries
+A snippet of the get_columns method can be seen below: \
+\
+![SQL_tasks/get_columns_snippet.png](SQL_tasks/get_columns_snippet.png)
+
+### 2. Data analysis queries
 Queries are written across five .sql files to answer the following questions about the data in orders_db:
 1. How many staff are there in all of the UK stores?
 
