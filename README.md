@@ -1,6 +1,6 @@
 ## Project Description
 
-## Project Stages
+## Power BI Report
 
 ### 1. Data Imports
 Each of the tables *Orders*, *Products*, *Stores*, and *Customers* is imported into the Power BI project from a different source.
@@ -229,5 +229,9 @@ The cross-filter settings are adjusted so that some visuals do not filter others
 This is achieved by selecting a visual, opening the format ribbon, clicking *Edit interactions* and then selecting either *Filter*, *Highlight* or *None* to determine how each visual is affected by the selected visual. 
 
 
+## SQL Database Analysis
 
+It is import to be able to use alternative tools to view and aggreagte data in a database, since not all clients will have access to Power BI software. 
 
+In this section of the project, data on a Postgres database server hosted on Microsoft Azure is queried. \
+The files associated with this section of the project are 
