@@ -229,9 +229,49 @@ The cross-filter settings are adjusted so that some visuals do not filter others
 This is achieved by selecting a visual, opening the format ribbon, clicking *Edit interactions* and then selecting either *Filter*, *Highlight* or *None* to determine how each visual is affected by the selected visual. 
 
 
-## SQL Database Analysis
+## Database Analysis with SQL
 
-It is import to be able to use alternative tools to view and aggreagte data in a database, since not all clients will have access to Power BI software. 
+It is import to be able to use alternative tools to view and aggreagte data in a database, since not all clients will have access to Power BI or equivalent software. 
 
 In this section of the project, data on a Postgres database server hosted on Microsoft Azure is queried. \
-The files associated with this section of the project are 
+The files associated with this section of the project are stored in a directory called **SQL_tasks**.
+
+
+### Review of tables
+A connection to the database is intitally set up using the SQLTools extension with the Postgres driver selected in VSCode. The connection settings are saved in a .json file: **.vscode/settings.json**.\
+\
+To obtain an overview of the contents of the database, information about the tables is extracted and saved to a number of .csv files for reference.\
+Two approaches to this task are explored:
+#### Maunual queries
+The initial SQL queries used to perform this task manually can be seen in the file **orders_db_queries.sql**.\
+\
+Two processes are implemented:
+- Extracting a list of tables of type 'BASE TABLE' from the database and saving it as a .csv file.
+
+- Extracting the column headings from each table in the tables list and saving each set of headings as a .csv file. 
+
+The files are saved in the directory 'tables_columns'
+
+#### Automated connection and queries
+Automation of the same process is achieved in **database_queries_auto.ipynb**. In this jupyter notebook the class DatabaseConnector is constructed and includes the following methods:
+- get_tables: queries the database and extracts the relevant table names, saves them to a .csv file and additionally converts them to a list. 
+
+- get_columns: using a for loop, interates through the list of table names and queries the database, extracting the column names for each table and saving each set to a .csv file of the appropriate name. 
+
+- get_data: establishes a connection to the database and runs the two methods above as sub-methods. 
+
+Files are saved to the newly-created directory 'tables_columns_auto'.\
+\
+The notebook also contains a function to extract the connection details from a .yaml file into a dictionary, which is used in the get_data method.  
+
+### Data analysis queries
+Queries are written across five .sql files to answer the following questions about the data in orders_db:
+1. How many staff are there in all of the UK stores?
+
+2. Which month in 2022 has had the highest revenue?
+3. Which German store type had the highest revenue for 2022?
+4. Create a view where the rows are the store types and the columns are the total sales, percentage of total sales and the count of orders
+5. Which product category generated the most profit for the "Wiltshire, UK" region in 2021?
+
+Each final result of each question is saved to a .csv file.\
+The .sql and .csv files for this section are saved in the directory 'questions_answers'. 
