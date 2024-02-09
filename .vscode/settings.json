@@ -1,0 +1,14 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "powerbi-data-analytics-server.postgres.database.azure.com",
+            "port": 5432,
+            "askForPassword": true,
+            "driver": "PostgreSQL",
+            "name": "analytics_2",
+            "database": "orders-db",
+            "username": "maya"
+        }
+    ]
+}
