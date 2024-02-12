@@ -32,7 +32,7 @@
 # Project Description
 This project involves analysis of data from a fictional global retail business. In the major part of the project an interactive report is constructed using Microsoft Power BI. Data is imported from a variety of sources and incorporated into the model, and a number of measures are created using DAX. Several report pages are created and populated with visuals to convey detailed information about the sales data and understand how customer, product, location and logistical factors relate to orders, revenue and profit.\
 \
-In addition, to demonstrate alternative methods of data retrieval and analysis that do not require Power BI software, an equivalent data set located on a Postgres database server hosted on Microsoft Azure is queried. The analysis is performed in Visual Studio Code using python and SQL.
+To demonstrate alternative methods of data retrieval and analysis that do not require Power BI software, an equivalent data set located on a Postgres database server hosted on Microsoft Azure is queried. The analysis is performed in Visual Studio Code using python and SQL.
 
 # Power BI Report
 
