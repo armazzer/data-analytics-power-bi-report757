@@ -1,8 +1,42 @@
-## Project Description
 
-## Power BI Report
+# Table of Contents
+[Project Description](#project-description)\
+[Power BI Report](#power-bi-report)
+1. [Data Imports](#1-data-imports)
+1. [Data Transformations](#2-data-transformations)
+    - [Orders table](#orders-table)
+    - [Products table](#products-table)
+    - [Stores table](#stores-table)
+    - [Customers table](#customers-table)
+1. [Model Construction](#3-model-construction)
+    - [Dates table](#dates-table)
+    - [Table relationships](#table-relationships)
+    - [Measures table](#measures-table)
+    - [Date and geography hierarchies](#date-and-geography-hierarchies)
+1. [Report Construction](#4-report-construction)
+    - [Customer Detail page](#customer-detail-page)
+    - [Executive Summary page](#executive-summary-page)
+    - [Product Detail page](#product-detail-page)
+    - [Stores Map page](#stores-map-page)
+    - [Stores Tooltip](#stores-tooltip)
+    - [Stores Drillthrough](#stores-drillthrough)
+    - [Report navigation](#report-navigation)
+    - [Cross-filter settings](#cross-filter-settings)
 
-### 1. Data Imports
+[Database Analysis with SQL](#database-analysis-with-sql)
+1. [Review of Tables](#1-review-of-tables)
+    - [Manual queries](#maunual-queries)
+    - [Automated connection and queries](#automated-connection-and-queries)
+1. [Data Analysis Queries](#2-data-analysis-queries)
+
+# Project Description
+This project involves analysis of data from a fictional global retail business. In the major part of the project an interactive report is constructed using Microsoft Power BI. Data is imported from a variety of sources and incorporated into the model, and a number of measures are created using DAX. Several report pages are created and populated with visuals to convey detailed information about the sales data and understand how customer, product, location and logistical factors relate to orders, revenue and profit.\
+\
+In addition, to demonstrate alternative methods of data retrieval and analysis that do not require Power BI software, an equivalent data set located on a Postgres database server hosted on Microsoft Azure is queried. The analysis is performed in Visual Studio Code using python and SQL.
+
+# Power BI Report
+
+## 1. Data Imports
 Each of the tables *Orders*, *Products*, *Stores*, and *Customers* is imported into the Power BI project from a different source.
 
 - The *Orders* table is imported from the Azure SQL Database using import mode. 
@@ -11,37 +45,37 @@ Each of the tables *Orders*, *Products*, *Stores*, and *Customers* is imported i
 - The *Stores* table is imported via an Azure Blob Sorage url. 
 - The *Customers* table is imported by from a local folder containing three csv files which are combined into a single query. 
 
-### 2. Data Transformations
+## 2. Data Transformations
 The Power Query Editor is used to transform elements of each table before loading. 
-#### Orders table:
+### Orders table
 - Each of the columns *Order Date* and *Shipping Date*, which initially contain both date and time, are split into two columns to separate date and time. 
 - Missing values are removed from *Order Date* 
 
-#### Products table:
+### Products table
 - Initally the *Weight* column contains both weight value and unit, with a variety of unit types. Several steps are implemented to convert all values to unit kilograms, and retain only numeric characters. 
 
-#### Stores table:
+### Stores table
 - Initially, the *World Region* column contains varied entries for the same region, for example "Europe" and "eeEurope" and "America" and "eeAmerica". \
 The "ee" prefix is removed from rows using the *Replace Vales* function.  
 
-#### Customers table:
+### Customers table
 - The column *Full Name* is created by combining *First Name* and *Last Name*.
 - The column *Source.Name* is removed.
 
 \
 Across all tables column headings are adjusted for consistency and to fit Power BI naming conventions. 
 
-### 3. Model Construction
+## 3. Model Construction
 Several steps are implemented to build out the data model for effective analysis.
 
-#### Dates table:
+### Dates table
 - The table *Dates* is created with a continuous *Date* column using DAX: \
 Dates = CALENDAR(DATE(YEAR(MIN(Orders[Order Date])), 1, 1),\
 DATE(YEAR(MAX(Orders[Order Date])), 12, 31))
 
 - The table *Dates* is built out with columns for *Day of Week*, *Month Number*, *Month Name*, *Quarter*, *Year*, *Start of Year*, *Start of Quarter*, *Start of Month* and *Start of Week*.
 
-#### Table relationships:
+### Table relationships
 The following many to one (left to right) relationships were created between tables:
 
 - Orders[Product Code] to Products[Product Code]
@@ -57,7 +91,7 @@ A screenshot of the data model star schema can be seen below \
 \
 ![Images/star_schema.png](Images/star_schema.png)
 
-#### Measures table
+### Measures table
 
 A separate *Measures table* was created in the Power Query Editor.
 \
@@ -72,7 +106,7 @@ Several key measures were calculated using DAX:
 - Revenue YTD = TOTALYTD([Total Revenue], Dates[Date])
 - Profit YTD = TOTALYTD([Total Profit], Dates[Date])
 
-#### Date and geography hierarchies
+### Date and geography hierarchies
 
 The following date hierarchy was created:\
 Start of Year > Start of Quarter > Start of Month > Start of Week > Date
@@ -81,11 +115,11 @@ The following geography hierarchy was created:\
 World Region (Continent) > Country > Country Region
 
 
-### 4. Report Construction
+## 4. Report Construction
 
 Four blank pages were created as the basis of the report - *Executive Summary*, *Customer Detail*, *Product Detail* and *Stores Map*
 
-#### Customer Detail page 
+### Customer Detail page 
 
 The *Customer Detail* page is populated with several visuals to illustrate:
 - Count of unique customers and revenue per customer (cards)
@@ -107,7 +141,7 @@ An example of the final page layout can be seen below:
 ![Images/customer_detail_all.png](Images/customer_detail_all.png)
 
 
-#### Executive Summary
+### Executive Summary page
 
 The *Executive Summary* page is popolulated with several visuals to illustrate:
 
@@ -136,7 +170,7 @@ An example of the Executive Summary page can be seen below:
 
 ![Images/executive_summary_all.png](Images/executive_summary_all.png)
 
-#### Product Detail page
+### Product Detail page
 
 The *Product Detail* page is populated with several visuals to illustrate:
 - The quarter-to-date orders, revenue and profit against their respective targets (10% growth on the previous quarter) - gauge visuals. 
@@ -174,7 +208,7 @@ An example of the final page layout can be seen below.
 ![Images/product_detail_all.png](Images/product_detail_all.png)
 
 
-#### Stores Map
+### Stores Map page
 
 The stores map page contains a large map of stores by Geography Hierarchy (World Region - Country - Country Region) with bubble size proportional to year-to-date profit. A slicer visual in Tile Mode allows rapid filtering by country, including a "Select all" option. The visual is connected to a tooltip page "Stores Tooltip" that displays the year-to-date profit against the profit goal in a gauge visual. \
 \
@@ -182,7 +216,7 @@ An example of the Stores Map page drilled to *Country Region* level, with Toolti
 \
 ![Images/stores_map_country_level.png](Images/stores_map_country_level.png)
 
-#### Stores Tooltip
+### Stores Tooltip
  The Stores Tooltip page displays the year-to-date profit against the profit goal in a gauge visual. The profit goal is defined as a 20% increase in profit over the previous year, and is defined in two stages using DAX:\
  \
 Previous Year Profit = CALCULATE([Total Profit], PREVIOUSYEAR(Dates[Date]))\
@@ -195,7 +229,7 @@ A card visual is included to indicate the current selection. For this a new meas
 \
 Country Region Selection = IF(ISFILTERED(Stores[Country Region]), SELECTEDVALUE(Stores[Country Region]), IF(ISFILTERED(Stores[Country]), SELECTEDVALUE(Stores[Country]), SELECTEDVALUE('Stores'[World Region])))  
 
-#### Stores Drillthrough
+### Stores Drillthrough
 
 The Stores Drillthrough Page is accessed from the Stores Map page by drilling down to *Country Region* level, right-clicking on a bubble, and selecting Drill through > Stores Drillthrough.
 \
@@ -213,7 +247,7 @@ An example of the Stores Drillthrough page, showing page settings, can be seen b
 \
 ![Images/stores_drillthrough_all.png](Images/stores_drillthrough_all.png)
 
-#### Report Navigation
+### Report navigation
 The report navigation bar is finalised with the following:
 - Buttons are added to the navigation bar for quick access to each of the report pages, excluding the Stores Tooltip page. 
     - For each button a default icon (white fill) and an "on hover" icon (navy) are assigned. 
@@ -224,12 +258,12 @@ An example of a report page with the completed navigation bar and related settin
 
 ![Images/executive_summary_navigation_settings.png](Images/executive_summary_navigation_settings.png)
 
-#### Cross-filter settings
+### Cross-filter settings
 The cross-filter settings are adjusted so that some visuals do not filter others, to ensure that relevant information is always displayed. \
 This is achieved by selecting a visual, opening the format ribbon, clicking *Edit interactions* and then selecting either *Filter*, *Highlight* or *None* to determine how each visual is affected by the selected visual. 
 
 
-## Database Analysis with SQL
+# Database Analysis with SQL
 
 It is import to be able to use alternative tools to view and aggreagte data in a database, since not all clients will have access to Power BI or equivalent software. 
 
@@ -237,12 +271,12 @@ In this section of the project, data on a Postgres database server hosted on Mic
 The files associated with this section of the project are stored in a directory called **SQL_tasks**.
 
 
-### 1. Review of Tables
+## 1. Review of Tables
 A connection to the database is intitally set up using the SQLTools extension with the Postgres driver selected in VSCode. The connection settings are saved in a .json file: **.vscode/settings.json**.\
 \
 To obtain an overview of the contents of the database, information about the tables is extracted and saved to a number of .csv files for reference.\
 Two approaches to this task are explored:
-#### Maunual queries
+### Maunual queries
 The initial SQL queries used to perform this task manually can be seen in the file **orders_db_queries.sql**.\
 \
 Two processes are implemented:
@@ -252,7 +286,7 @@ Two processes are implemented:
 
 The files are saved in the directory 'tables_columns'
 
-#### Automated connection and queries
+### Automated connection and queries
 Automation of the same process is achieved in **database_queries_auto.ipynb**. In this jupyter notebook the class DatabaseConnector is constructed and includes the following methods:
 - get_tables: queries the database and extracts the relevant table names, saves them to a .csv file and additionally converts them to a list. 
 
@@ -268,7 +302,7 @@ A snippet of the get_columns method can be seen below: \
 \
 ![SQL_tasks/get_columns_snippet.png](SQL_tasks/get_columns_snippet.png)
 
-### 2. Data analysis queries
+## 2. Data Analysis Queries
 Queries are written across five .sql files to answer the following questions about the data in orders_db:
 1. How many staff are there in all of the UK stores?
 
