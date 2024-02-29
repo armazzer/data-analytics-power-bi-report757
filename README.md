@@ -85,7 +85,7 @@ The following many to one (left to right) relationships were created between tab
 - Orders[Order Date] to Date[Date]
 - Orders[Shipping Date] to Date[Date]
 
-Between the last two relationaships indicates above, Orders[Order Date] to Date[Date] was marked as the active relationaship. 
+Between the last two relationships indicated above, Orders[Order Date] to Date[Date] was marked as the active relationaship. 
 
 A screenshot of the data model star schema can be seen below \
 \
